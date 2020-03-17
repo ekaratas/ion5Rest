@@ -1,0 +1,7 @@
+{
+  "name": "ion5Rest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
