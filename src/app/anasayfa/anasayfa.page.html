@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="myValue">
+      <ion-button (click)="kayitEkleAc()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Anasayfa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2 *ngIf="myValue">Hoşgeldin, {{ userData.name }} </h2>
+  <h2 *ngIf="!myValue">Yeni Kayıt Ekle </h2>
+
+  <span *ngIf="myValue; else yeniKayitEkle">
+
+    
+  <ion-card *ngFor="let item of items">
+
+    <ion-item-sliding>
+  
+      <ion-item (click)="presentActionSheet(item.feed_id,item.feed)">
+        <ion-card-content>
+          <p [innerHTML]="item.feed"></p>
+          <span>{{ zamanDonustur(item.created) }}</span>
+          <br>
+          <span>User ID: {{ item.user_id_fk }}</span>
+        </ion-card-content>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary" expandable (click)="duzenle(item.feed_id,item.feed)">
+          <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+          Düzenle
+        </ion-item-option>
+        <ion-item-option color="danger" expandable (click)="presentAlertConfirm(item.feed_id)">
+          <ion-icon slot="start" ios="trash-outline" md="trash-outline"></ion-icon>
+          Sil
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+
+  </ion-card>
+</span>
+
+  <ng-template #yeniKayitEkle>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Mesajınız: </ion-label>
+        <ion-input type="text" [(ngModel)]="userData.feed"></ion-input>
+      </ion-item>
+      <br>
+        <ion-button [disabled]="userData.feed == '' " color="success" expand="full" (click)="yeniKayit(userData.feed)">Yeni Kayıt Ekle</ion-button>
+        <ion-button color="danger" expand="full" (click)="kayitEkleKapa()">Vazgeç</ion-button>
+  
+      </ion-list>
+  </ng-template>
+
+  </ion-content>

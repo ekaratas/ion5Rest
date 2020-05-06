@@ -1,20 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-toggle slot="primary" [(ngModel)]="myValue" [checked]="myValue" (ionChange)="myChange($event)"></ion-toggle>
+    <ion-title>Hoşgeldiniz</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content fullscreen class="ion-padding" scroll-y="false">
+  <span *ngIf="myValue; else yardim">
+  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="mySliderChange($event)">
+    <ion-slide>
+      <div class="slide">
+        <img src="../../assets/images/slide-1.png"/>
+        <h2>Welcome</h2>
+        <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+      </div>
+    </ion-slide>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-slide>
+      <img src="../../assets/images/slide-2.png"/>
+      <h2>What is Ionic?</h2>
+      <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+    </ion-slide>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-slide>
+      <img src="../../assets/images/slide-3.png"/>
+      <h2>What is Ionic Appflow?</h2>
+      <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="../../assets/images/slide-4.png"/>
+      <h2>Ready to Play?</h2>
+      <ion-button fill="clear" [routerLink]="['/kayit']" routerLinkActive="router-link-active" >Kayıt ol <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+    </ion-slide>
+  </ion-slides>
+</span>
+
+<ng-template #yardim>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>Kullanıcı Adı</ion-label>
+      <ion-input type="text" [(ngModel)]="userData.username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Şifre</ion-label>
+      <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+      </ion-item>
+    
+      <ion-button [disabled]="userData.username == '' || userData.password == '' " color="success" expand="full" (click)="giris()">Giriş Yap</ion-button>
+      <ion-button fill = "clear" [routerLink]="['/kayit']" >Kayıt Ol</ion-button>
+      </ion-list>
+</ng-template>
+
 </ion-content>
